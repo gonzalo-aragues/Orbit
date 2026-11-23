@@ -20,14 +20,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if !UserDefaults.standard.bool(forKey: "welcomed") {
             UserDefaults.standard.set(true, forKey: "welcomed")
             HUD.shared.flash(title: "Orbit is running",
-                             detail: "Drag any file a little and the ring appears. Hold ⇧ or rest in the centre to switch rings.",
+                             detail: "Hold ⌥ Option while dragging a file and the ring appears. Press ⇧ or rest in the centre to switch rings.",
                              at: NSPoint(x: NSScreen.main?.frame.midX ?? 600, y: (NSScreen.main?.frame.maxY ?? 800) - 160))
         }
     }
 
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
-        let header = NSMenuItem(title: "Drag any file to open the ring", action: nil, keyEquivalent: "")
+        let header = NSMenuItem(title: "Hold ⌥ while dragging a file to open the ring", action: nil, keyEquivalent: "")
         header.isEnabled = false
         menu.addItem(header)
         menu.addItem(.separator())

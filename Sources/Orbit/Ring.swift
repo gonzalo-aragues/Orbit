@@ -283,6 +283,12 @@ final class RingController {
             // Let drops pass through outside the disc, and get out of the way if the user drags elsewhere.
             panel.ignoresMouseEvents = distance > RingGeometry.disk
             if distance > RingGeometry.disk + 150 { hide(); return }
+            // The ring lives only while ⌥ is held: letting go mid-drag dismisses it (press again to bring it back).
+            if !NSEvent.modifierFlags.contains(.option), NSEvent.pressedMouseButtons & 1 != 0, !committed {
+                hide()
+                DragMonitor.shared.allowRetrigger()
+                return
+            }
             updateHoverFromMouse()
             if NSEvent.pressedMouseButtons & 1 == 0 {
                 if mouseReleasedAt == nil { mouseReleasedAt = now }
@@ -342,8 +348,16 @@ final class DragMonitor {
         handledThisDrag = false
     }
 
+    /// Called when the ring was dismissed by releasing ⌥, so pressing it again in the same drag reopens it.
+    func allowRetrigger() {
+        handledThisDrag = false
+        firstSeen = nil
+    }
+
     private func mouseDragged() {
         guard enabled, !handledThisDrag, !RingController.shared.isVisible else { return }
+        // Only while ⌥ Option is held, so ordinary drags are left alone.
+        guard NSEvent.modifierFlags.contains(.option) else { firstSeen = nil; return }
         let pb = NSPasteboard(name: .drag)
         guard pb.changeCount != changeCountAtMouseDown else { return }
         guard let urls = pb.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL],

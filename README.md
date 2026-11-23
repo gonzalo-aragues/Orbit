@@ -1,6 +1,6 @@
 # Orbit
 
-A menu-bar app for macOS 26+. Start dragging any file and a Liquid Glass ring opens under the cursor. Drop the file on a segment to convert it or open a quick editor. The result is saved to your Desktop. Uncheck **Save to Desktop** in the menu-bar menu to save next to the original instead.
+A menu-bar app for macOS 26+. Hold **⌥ Option** while dragging any file and a Liquid Glass ring opens under the cursor; ordinary drags are left alone. Drop the file on a segment to convert it or open a quick editor. The result is saved to your Desktop. Uncheck **Save to Desktop** in the menu-bar menu to save next to the original instead.
 
 ## Build & run
 
@@ -14,7 +14,7 @@ Orbit lives in the menu bar (◎). From there you can pause it, choose where res
 
 ## Using the ring
 
-- **Drag a file**: the ring appears, with the file size in the hub.
+- **Drag a file while holding ⌥ Option**: the ring appears, with the file size in the hub. Let go of ⌥ before dropping and the ring closes (press it again to bring it back).
 - **Hover a segment**: it turns orange and its name shows in the hub. Drop to run it.
 - **Switch rings**: press **⇧ Shift** while dragging, or leave the hub and rest back on it for half a second.
 - **Cancel**: drop on the hub, or drag far away and the ring gets out of the way.
